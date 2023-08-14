@@ -1,10 +1,10 @@
 package SearchElements;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 
 
 public class FormPage {
@@ -17,6 +17,9 @@ public class FormPage {
 
     @FindBy(id = "dataName")
     private WebElement hasName;
+
+    @FindBy(id = "dataGender")
+    private WebElement dataGender;
 
     @FindBy(id = "blankNameError")
     private WebElement hasNameError;
@@ -31,70 +34,87 @@ public class FormPage {
     @FindBy(id = "dataSelect22")
     private WebElement hasDataSelect22;
 
-    @FindBy (id = "dataGender")
-    private WebElement hasGender;
+    @FindBy(id = "dataGender")
+    private WebElement setGender;
 
-    @FindBy (xpath = "//button[text()='Ok']")
+    @FindBy(xpath = "//button[text()='Ok']")
     private WebElement hasNotification;
 
-    @FindBy (xpath = "//td[text()='ss@smail.ru']")
+    @FindBy(xpath = "//td[text()='fake@mail.ru']")
     private WebElement emailResult;
 
-    @FindBy (xpath = "//td[text()='Michael']")
+    @FindBy(xpath = "//td[text()='Michael']")
     private WebElement nameResult;
-
-    @FindBy (xpath = "//td[text()='Мужской']")
+    @FindBy(xpath = "//option[text()='Женский']")
+    private WebElement getGanderFemale;
+    @FindBy(xpath = "//td[text()='Мужской']")
     private WebElement genderResult;
 
-    @FindBy (xpath = "//td[text()='1.1, 1.2']")
+    @FindBy(xpath = "//td[text()='1.1, 1.2']")
     private WebElement version1Result;
 
-    @FindBy (xpath = "//td[text()='2.2']")
+    @FindBy(xpath = "//td[text()='1.1']")
+    private WebElement version1Result2;
+
+    @FindBy(xpath = "//td[text()='2.2']")
     private WebElement version2Result;
-
-    public  String getEmailResult(){
-        return emailResult.getText();
-    }
-
-    public String getNameResult(){
-        return nameResult.getText();
-    }
-
-    public String getGenderResult(){
-        return genderResult.getText();
-    }
-
-    public String getVersion1Result () {
-        return version1Result.getText();
-    }
-
-    public String getVersion2Result(){
-        return version2Result.getText();
-    }
-
 
     public FormPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
 
     }
-    public void setHasDataCheck11(){
+
+    public String getEmailResult() {
+        return emailResult.getText();
+    }
+
+    public void setGanderFemale() {
+        dataGender.click();
+        getGanderFemale.click();
+    }
+
+    public String getNameResult() {
+        return nameResult.getText();
+    }
+
+    public String getGenderResultMale() {
+        return genderResult.getText();
+    }
+
+    public String getGenderResultFemale() {
+        return getGanderFemale.getText();
+    }
+
+    public String getVersion1Result() {
+        return version1Result.getText();
+    }
+
+    public String getVersion1Result2() {
+        return version1Result2.getText();
+    }
+
+    public String getVersion2Result() {
+        return version2Result.getText();
+    }
+
+    public void setHasDataCheck11() {
         hasDataCheck11.click();
     }
 
-    public void setHasDataCheck12(){
+    public void setHasDataCheck12() {
         hasDataCheck12.click();
     }
 
-    public void setHasDataCheck21(){
-        hasDataSelect21.click();
-    }
-
-    public void setHasDataSelect22(){
+    public void setHasDataSelect22() {
         hasDataSelect22.click();
     }
 
-    public void setHasGender(){
-        hasGender.click();
+    public void setHasDataSelect21() {
+        hasDataSelect21.click();
+    }
+
+    public void setHasGender() {
+        setGender.click();
     }
 
     public void setLogin(String text) {
@@ -118,10 +138,12 @@ public class FormPage {
     public boolean hasInvalidNameError() {
         return hasNameError.isDisplayed() && hasNameError.getText().equals("Поле имя не может быть пустым");
     }
+
     public String setHasNotification1() {
         return hasNotification.getText();
     }
-    public void setClickNotification(){
+
+    public void setClickNotification() {
         hasNotification.click();
     }
 }

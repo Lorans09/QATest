@@ -22,23 +22,34 @@ public class FormPageTests extends BaseSeleniumTest {
     @Test
     public void emailValidationError() {
         FormPage formPage = new FormPage(driver);
-        formPage.setLogin("sssmail.ru");
+        formPage.setLogin("fakesmail.ru");
         formPage.setButton();
         Assert.assertTrue(formPage.hasInvalidEmailError());
     }
 
     @Test
-    public void nameValidationError(){
+    public void nameValidationError() {
         FormPage formPage = new FormPage(driver);
-        formPage.setLogin("ss@smail.ru");
+        formPage.setLogin("fake@smail.ru");
         formPage.setName("");
         formPage.setButton();
         Assert.assertTrue(formPage.hasInvalidNameError());
     }
+
     @Test
-    public void CheckNotification(){
+    public void clearAttributionError() {
         FormPage formPage = new FormPage(driver);
-        formPage.setLogin("ss@smail.ru");
+        formPage.setLogin("");
+        formPage.setName("");
+        formPage.setButton();
+        Assert.assertTrue(formPage.hasInvalidEmailError());
+    }
+
+
+    @Test
+    public void CheckAddNotification() {
+        FormPage formPage = new FormPage(driver);
+        formPage.setLogin("fake@smail.ru");
         formPage.setName("Michael");
         formPage.setHasGender();
         formPage.setHasDataCheck11();
@@ -47,22 +58,39 @@ public class FormPageTests extends BaseSeleniumTest {
         formPage.setButton();
         Assert.assertEquals(formPage.setHasNotification1(), "Ok");
     }
+
     @Test
-    public void CheckForm(){
+    public void CheckFormAttributesMale() {
         FormPage formPage = new FormPage(driver);
-        formPage.setLogin("ss@smail.ru");
+        formPage.setLogin("fake@mail.ru");
         formPage.setName("Michael");
-        formPage.setHasGender();
+        formPage.setHasDataCheck11();
+        formPage.setHasDataSelect22();
+        formPage.setButton();
+        formPage.setClickNotification();
+        Assert.assertEquals(formPage.getEmailResult(), "fake@mail.ru");
+        Assert.assertEquals(formPage.getNameResult(), "Michael");
+        Assert.assertEquals(formPage.getGenderResultMale(), "Мужской");
+        Assert.assertEquals(formPage.getVersion1Result2(), "1.1");
+        Assert.assertEquals(formPage.getVersion2Result(), "2.2");
+    }
+
+    @Test
+    public void CheckFormAttributesFemale() {
+        FormPage formPage = new FormPage(driver);
+        formPage.setLogin("fake@mail.ru");
+        formPage.setName("Michael");
+        formPage.setGanderFemale();
         formPage.setHasDataCheck11();
         formPage.setHasDataCheck12();
         formPage.setHasDataSelect22();
         formPage.setButton();
         formPage.setClickNotification();
-        Assert.assertEquals(formPage.getEmailResult(),"ss@smail.ru");
-        Assert.assertEquals(formPage.getNameResult(),"Michael");
-        Assert.assertEquals(formPage.getGenderResult(),"Мужской");
-        Assert.assertEquals(formPage.getVersion1Result(),"1.1, 1.2");
-        Assert.assertEquals(formPage.getVersion2Result(),"2.2");
+        Assert.assertEquals(formPage.getEmailResult(), "fake@mail.ru");
+        Assert.assertEquals(formPage.getNameResult(), "Michael");
+        Assert.assertEquals(formPage.getGenderResultFemale(), "Женский");
+        Assert.assertEquals(formPage.getVersion1Result(), "1.1, 1.2");
+        Assert.assertEquals(formPage.getVersion2Result(), "2.2");
     }
-
 }
+

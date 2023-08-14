@@ -16,7 +16,7 @@ public class LoginPageTests extends BaseSeleniumTest {
     @Test
     public void emailValidesionError() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.setLogin("ss@ss.ru");
+        loginPage.setLogin("fake@mail.ru");
         loginPage.login();
         Assert.assertEquals(loginPage.getError(), "Неверный E-Mail или пароль");
 
@@ -25,7 +25,7 @@ public class LoginPageTests extends BaseSeleniumTest {
     @Test
     public void PasswordValidationError() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.setLogin("ssss.ru");
+        loginPage.setLogin("fakemail.ru");
         loginPage.login();
         Assert.assertTrue(loginPage.hasInvalidEmailError());
     }
